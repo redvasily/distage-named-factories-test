@@ -17,6 +17,8 @@ class MyApp(incrementerFactory: () => Incrementer) {
 // Exception in thread "main" izumi.distage.model.exceptions.ProvisioningException: Provisioner stopped after 1 instances, 1/4 operations failed:
 // - {type.scala.Int} (Example.scala:27), MissingInstanceException: Instance is not available in the object graph: {type.scala.Int}. required by refs: Set({type.scala.Function0[+Incrementor]})
 object AutoFactoryModule extends ModuleDef {
+  // Without the line bellow factory is not created, even though distage knows the rule to create Incrementer
+  // instances
   make[Int].from(0)
   make[Incrementer].from(() => new Incrementer(5))
   make[() => Incrementer]
